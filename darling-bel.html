@@ -1,0 +1,829 @@
+<!doctype html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Isabelly & Keustom - Nossa História 💖</title>
+        <style>
+            /* Reset Básico e Fontes */
+            @import url("https://fonts.googleapis.com/css2?family=Parisienne&family=Lato:wght@300;400;700&display=swap");
+
+            :root {
+                /* Paleta Tema Escuro Estiloso */
+                --primary-color: #e91e63; /* Rosa vibrante / Magenta */
+                --secondary-color: #880e4f; /* Rosa mais escuro / Vinho Intenso */
+                --accent-color: #f06292; /* Rosa mais claro para detalhes */
+                --text-color: #f5f5f5; /* Branco suave / Cinza muito claro */
+                --white: #ffffff;
+                --bg-color: #121212; /* Preto / Cinza muito escuro */
+                --bg-secondary-color: #1e1e1e; /* Cinza escuro para seções */
+                --shadow-color: rgba(233, 30, 99, 0.3); /* Sombra com cor primária */
+
+                --font-heading: "Parisienne", cursive;
+                --font-body: "Lato", sans-serif;
+            }
+
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            html {
+                scroll-behavior: smooth;
+            }
+
+            body {
+                font-family: var(--font-body);
+                color: var(--text-color);
+                background-color: var(--bg-color);
+                line-height: 1.6;
+                overflow-x: hidden; /* Previne scroll horizontal */
+                position: relative; /* Necessário para z-index da chuva de corações */
+            }
+
+            /* --- Animação Chuva de Corações --- */
+            #heart-rain {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+                z-index: 0; /* Fica atrás do conteúdo principal */
+                pointer-events: none; /* Não interfere com cliques */
+            }
+
+            .heart {
+                position: absolute;
+                top: -10vh; /* Começa acima da tela */
+                font-size: 1.5rem; /* Tamanho dos corações */
+                color: var(--primary-color);
+                opacity: 0.7;
+                animation: fall linear infinite;
+                user-select: none; /* Impede seleção */
+            }
+
+            /* Variações para parecer mais natural */
+            .heart:nth-child(1) {
+                left: 10%;
+                animation-duration: 10s;
+                animation-delay: 0s;
+                opacity: 0.6;
+                font-size: 1.2rem;
+            }
+            .heart:nth-child(2) {
+                left: 20%;
+                animation-duration: 8s;
+                animation-delay: 1s;
+            }
+            .heart:nth-child(3) {
+                left: 30%;
+                animation-duration: 12s;
+                animation-delay: 0.5s;
+                opacity: 0.8;
+                font-size: 1.8rem;
+            }
+            .heart:nth-child(4) {
+                left: 40%;
+                animation-duration: 7s;
+                animation-delay: 2s;
+            }
+            .heart:nth-child(5) {
+                left: 50%;
+                animation-duration: 11s;
+                animation-delay: 0s;
+                opacity: 0.5;
+                font-size: 1rem;
+            }
+            .heart:nth-child(6) {
+                left: 60%;
+                animation-duration: 9s;
+                animation-delay: 1.5s;
+            }
+            .heart:nth-child(7) {
+                left: 70%;
+                animation-duration: 13s;
+                animation-delay: 0.2s;
+                font-size: 1.6rem;
+            }
+            .heart:nth-child(8) {
+                left: 80%;
+                animation-duration: 7.5s;
+                animation-delay: 2.5s;
+                opacity: 0.9;
+            }
+            .heart:nth-child(9) {
+                left: 90%;
+                animation-duration: 10.5s;
+                animation-delay: 0.8s;
+                font-size: 1.3rem;
+            }
+            .heart:nth-child(10) {
+                left: 5%;
+                animation-duration: 9.5s;
+                animation-delay: 3s;
+                opacity: 0.7;
+            }
+            .heart:nth-child(11) {
+                left: 25%;
+                animation-duration: 11.5s;
+                animation-delay: 1.8s;
+                font-size: 1.7rem;
+            }
+            .heart:nth-child(12) {
+                left: 85%;
+                animation-duration: 8.5s;
+                animation-delay: 0.3s;
+            }
+
+            @keyframes fall {
+                0% {
+                    transform: translateY(0) rotate(0deg);
+                    opacity: 0.7;
+                }
+                100% {
+                    transform: translateY(110vh) rotate(15deg);
+                    opacity: 0.1;
+                }
+            }
+            /* --- Fim Chuva de Corações --- */
+
+            /* Animação de Abertura */
+            #opening-animation {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: linear-gradient(135deg, var(--bg-secondary-color), var(--secondary-color));
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                z-index: 1000;
+                transition:
+                    opacity 1s ease-out,
+                    transform 1s ease-out;
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            #opening-animation.hidden {
+                opacity: 0;
+                transform: scale(1.1);
+                pointer-events: none;
+            }
+
+            #reveal-button {
+                background-color: var(--primary-color);
+                color: var(--white);
+                border: 2px solid var(--primary-color);
+                padding: 15px 30px;
+                font-size: 1.2rem;
+                font-family: var(--font-body);
+                font-weight: bold;
+                border-radius: 50px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                box-shadow: 0 4px 15px var(--shadow-color);
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+
+            #reveal-button:hover {
+                background-color: var(--secondary-color);
+                border-color: var(--secondary-color);
+                transform: translateY(-3px);
+                box-shadow: 0 6px 20px var(--shadow-color);
+            }
+
+            #reveal-button::before {
+                content: "💖";
+                font-size: 1.5rem;
+            }
+
+            /* Conteúdo Principal */
+            #main-content {
+                opacity: 0;
+                transition: opacity 1s ease-in 0.5s;
+                padding: 20px;
+                max-width: 1200px;
+                margin: 0 auto;
+                position: relative;
+                z-index: 1;
+            }
+
+            #main-content.visible {
+                opacity: 1;
+            }
+
+            /* Cabeçalho com Nomes */
+            .hero {
+                text-align: center;
+                margin-bottom: 40px;
+                padding-top: 40px;
+            }
+
+            .hero h1 {
+                font-family: var(--font-heading);
+                font-size: 3.5rem;
+                color: var(--white);
+                margin-bottom: 10px;
+                animation: fadeInDown 1s ease-out 1s both;
+            }
+            .hero h1 span {
+                color: var(--primary-color);
+            }
+
+            /* Mensagem Principal */
+            .message-section {
+                background-color: rgba(30, 30, 30, 0.8);
+                backdrop-filter: blur(5px);
+                padding: 30px;
+                border-radius: 15px;
+                margin-bottom: 40px;
+                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+                text-align: center;
+                animation: fadeInUp 1s ease-out 1.2s both;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .message-section p {
+                font-size: 1.2rem;
+                color: var(--text-color);
+                max-width: 600px;
+                margin: 0 auto;
+                line-height: 1.8;
+            }
+
+            .message-section .highlight {
+                font-weight: bold;
+                color: var(--primary-color);
+            }
+
+            /* Carrossel de Imagens */
+            .carousel-section {
+                margin-bottom: 40px;
+                animation: fadeInUp 1s ease-out 1.4s both;
+            }
+
+            .carousel-container {
+                position: relative;
+                max-width: 800px;
+                margin: 0 auto;
+                overflow: hidden;
+                border-radius: 15px;
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+                background-color: var(--bg-secondary-color);
+            }
+
+            .carousel-slide {
+                display: flex;
+                transition: transform 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            }
+
+            .carousel-slide img {
+                width: 100%;
+                flex-shrink: 0;
+                display: block;
+                aspect-ratio: 1 / 1;
+                object-fit: cover;
+            }
+
+            .carousel-button {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                background-color: rgba(0, 0, 0, 0.6);
+                color: var(--white);
+                border: none;
+                padding: 10px 15px;
+                font-size: 1.5rem;
+                cursor: pointer;
+                border-radius: 50%;
+                transition: background-color 0.3s ease;
+                z-index: 10;
+                width: 45px;
+                height: 45px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .carousel-button:hover {
+                background-color: rgba(233, 30, 99, 0.7);
+            }
+
+            .carousel-button.prev {
+                left: 15px;
+            }
+            .carousel-button.next {
+                right: 15px;
+            }
+
+            /* Player de Música */
+            .music-player {
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                z-index: 500;
+                animation: fadeIn 1s ease-out 2s both;
+            }
+
+            #play-pause-button {
+                background-color: var(--primary-color);
+                color: var(--white);
+                border: none;
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                font-size: 1.5rem;
+                cursor: pointer;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                box-shadow: 0 4px 15px var(--shadow-color);
+                transition:
+                    background-color 0.3s ease,
+                    transform 0.3s ease;
+            }
+
+            #play-pause-button:hover {
+                background-color: var(--secondary-color);
+                transform: scale(1.1);
+            }
+
+            #play-pause-button.playing::before {
+                content: "❚❚";
+                font-size: 1.2rem;
+                line-height: 1;
+            }
+            #play-pause-button.paused::before {
+                content: "▶";
+                margin-left: 3px;
+                font-size: 1.2rem;
+            }
+
+            /* Contador de Tempo */
+            .counter-section {
+                background-color: var(--bg-secondary-color);
+                color: var(--text-color);
+                padding: 30px;
+                border-radius: 15px;
+                text-align: center;
+                margin-bottom: 40px;
+                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+                animation: fadeInUp 1s ease-out 1.6s both;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .counter-section h2 {
+                font-family: var(--font-body);
+                font-weight: bold;
+                font-size: 1.5rem;
+                margin-bottom: 20px;
+                color: var(--white);
+            }
+
+            .counter-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+                gap: 15px;
+                max-width: 600px;
+                margin: 0 auto 20px auto;
+            }
+
+            .time-unit {
+                background-color: rgba(233, 30, 99, 0.15);
+                padding: 10px;
+                border-radius: 8px;
+                border: 1px solid var(--primary-color);
+            }
+
+            .time-unit span {
+                display: block;
+                font-size: 1.8rem;
+                font-weight: bold;
+                color: var(--white);
+            }
+
+            .time-unit p {
+                font-size: 0.9rem;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                color: var(--accent-color);
+            }
+
+            .counter-section .start-date {
+                margin-top: 20px;
+                font-size: 0.9rem;
+                opacity: 0.8;
+                color: var(--text-color);
+            }
+            #future-date-warning {
+                font-size: 0.8rem;
+                margin-top: 10px;
+                opacity: 0.7;
+                display: none;
+                color: var(--accent-color);
+            }
+
+            /* Footer Simples */
+            footer {
+                text-align: center;
+                padding: 20px;
+                margin-top: 40px;
+                font-size: 0.9rem;
+                color: var(--accent-color);
+                opacity: 0.7;
+            }
+
+            /* Animações Keyframes */
+            @keyframes fadeInDown {
+                from {
+                    opacity: 0;
+                    transform: translateY(-20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                }
+                to {
+                    opacity: 1;
+                }
+            }
+
+            /* Responsividade */
+            @media (max-width: 768px) {
+                .hero h1 {
+                    font-size: 2.8rem;
+                }
+                .message-section p {
+                    font-size: 1.1rem;
+                }
+                .carousel-container {
+                    max-width: 95%;
+                }
+                .counter-grid {
+                    grid-template-columns: repeat(3, 1fr);
+                }
+                .time-unit span {
+                    font-size: 1.5rem;
+                }
+                .time-unit p {
+                    font-size: 0.8rem;
+                }
+                #play-pause-button {
+                    width: 45px;
+                    height: 45px;
+                    font-size: 1.3rem;
+                }
+                .heart {
+                    font-size: 1.2rem;
+                }
+            }
+
+            @media (max-width: 480px) {
+                .hero h1 {
+                    font-size: 2.2rem;
+                }
+                #reveal-button {
+                    padding: 12px 25px;
+                    font-size: 1rem;
+                }
+                .message-section {
+                    padding: 20px;
+                }
+                .message-section p {
+                    font-size: 1rem;
+                }
+                .counter-grid {
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: 10px;
+                }
+                .time-unit span {
+                    font-size: 1.3rem;
+                }
+                .carousel-button {
+                    padding: 8px 12px;
+                    font-size: 1.2rem;
+                    width: 40px;
+                    height: 40px;
+                }
+                .carousel-button.prev {
+                    left: 10px;
+                }
+                .carousel-button.next {
+                    right: 10px;
+                }
+                #play-pause-button {
+                    bottom: 15px;
+                    right: 15px;
+                }
+                .heart {
+                    font-size: 1rem;
+                }
+                .heart:nth-child(odd) {
+                    display: none;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div id="heart-rain">
+            <div class="heart">💗</div>
+            <div class="heart">💗</div>
+            <div class="heart">💗</div>
+            <div class="heart">💗</div>
+            <div class="heart">💗</div>
+            <div class="heart">💗</div>
+            <div class="heart">💗</div>
+            <div class="heart">💗</div>
+            <div class="heart">💗</div>
+            <div class="heart">💗</div>
+            <div class="heart">💗</div>
+            <div class="heart">💗</div>
+        </div>
+
+        <div id="opening-animation">
+            <button id="reveal-button">Abrir Surpresa</button>
+        </div>
+
+        <main id="main-content">
+            <header class="hero">
+                <h1>Isabelly <span>&</span> Keustom</h1>
+            </header>
+
+            <section class="message-section">
+                <p>Nunca imaginei que fosse possível amar tanto alguém, até amar você! Obrigada por cada <span class="highlight">sorriso</span> e momentos de alegria que você me proporciona só de estar do meu lado.</p>
+            </section>
+
+            <section class="carousel-section">
+                <div class="carousel-container">
+                    <div class="carousel-slide">
+                        <img src="bel-1.jpg" alt="Isabelly e Keustom" />
+                        <img src="bel-2.jpg" alt="Isabelly e Keustom" />
+                        <img src="bel-3.jpg" alt="Isabelly e Keustom" />
+                        <img src="bel-4.jpg" alt="Isabelly e Keustom" />
+                        <img src="bel-5.jpg" alt="Isabelly e Keustom" />
+                    </div>
+                    <button class="carousel-button prev" aria-label="Imagem Anterior">&#10094;</button>
+                    <button class="carousel-button next" aria-label="Próxima Imagem">&#10095;</button>
+                </div>
+            </section>
+
+            <section class="counter-section">
+                <h2>Juntos há:</h2>
+                <div class="counter-grid">
+                    <div class="time-unit">
+                        <span id="years">0</span>
+                        <p>Anos</p>
+                    </div>
+                    <div class="time-unit">
+                        <span id="months">0</span>
+                        <p>Meses</p>
+                    </div>
+                    <div class="time-unit">
+                        <span id="days">0</span>
+                        <p>Dias</p>
+                    </div>
+                    <div class="time-unit">
+                        <span id="hours">0</span>
+                        <p>Horas</p>
+                    </div>
+                    <div class="time-unit">
+                        <span id="minutes">0</span>
+                        <p>Minutos</p>
+                    </div>
+                    <div class="time-unit">
+                        <span id="seconds">0</span>
+                        <p>Segundos</p>
+                    </div>
+                </div>
+                <p class="start-date">Desde 7 de abril de 2025</p>
+                <p id="future-date-warning" style="display: none">(Contagem regressiva para o nosso começo!)</p>
+            </section>
+
+            <audio id="bg-music" loop>
+                <source src="music-1.mp3" type="audio/mpeg" />
+                Seu navegador não suporta o elemento de áudio.
+            </audio>
+            <div class="music-player">
+                <button id="play-pause-button" class="paused" aria-label="Tocar/Pausar Música"></button>
+            </div>
+
+            <footer>Feito com 💗 para Keustom por Isabelly</footer>
+        </main>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                const revealButton = document.getElementById("reveal-button");
+                const openingAnimation = document.getElementById("opening-animation");
+                const mainContent = document.getElementById("main-content");
+                const audioElement = document.getElementById("bg-music");
+                const playPauseButton = document.getElementById("play-pause-button");
+                const carouselSlide = document.querySelector(".carousel-slide");
+                const prevButton = document.querySelector(".carousel-button.prev");
+                const nextButton = document.querySelector(".carousel-button.next");
+                const futureDateWarning = document.getElementById("future-date-warning");
+                const yearsEl = document.getElementById("years");
+                const monthsEl = document.getElementById("months");
+                const daysEl = document.getElementById("days");
+                const hoursEl = document.getElementById("hours");
+                const minutesEl = document.getElementById("minutes");
+                const secondsEl = document.getElementById("seconds");
+                let counterInterval;
+                let currentIndex = 0;
+                let totalImages = 0; // Será atualizado
+
+                // Função para atualizar o carrossel
+                function updateCarousel() {
+                    const carouselImages = document.querySelectorAll(".carousel-slide img");
+                    totalImages = carouselImages.length;
+                    if (totalImages === 0) return; // Previne erro se não houver imagens
+                    const offset = -currentIndex * 100;
+                    carouselSlide.style.transform = `translateX(${offset}%)`;
+                }
+
+                // 1. Animação de Abertura e Início da Música/Contador
+                revealButton.addEventListener("click", () => {
+                    openingAnimation.classList.add("hidden");
+                    mainContent.classList.add("visible");
+
+                    // Tenta tocar a música
+                    audioElement
+                        .play()
+                        .then(() => {
+                            playPauseButton.classList.remove("paused");
+                            playPauseButton.classList.add("playing");
+                        })
+                        .catch(error => {
+                            console.log("Autoplay bloqueado:", error);
+                            playPauseButton.classList.add("paused");
+                        });
+
+                    // Inicia o contador e o carrossel
+                    startRelationshipCounter();
+                    updateCarousel(); // Inicializa o carrossel após o conteúdo ser visível
+                });
+
+                // 2. Controle Play/Pause da Música
+                playPauseButton.addEventListener("click", () => {
+                    if (audioElement.paused) {
+                        audioElement.play();
+                    } else {
+                        audioElement.pause();
+                    }
+                });
+                audioElement.onplay = () => {
+                    playPauseButton.classList.remove("paused");
+                    playPauseButton.classList.add("playing");
+                };
+                audioElement.onpause = () => {
+                    playPauseButton.classList.remove("playing");
+                    playPauseButton.classList.add("paused");
+                };
+
+                // 3. Carrossel de Imagens (Controles)
+                nextButton.addEventListener("click", () => {
+                    if (totalImages === 0) return;
+                    currentIndex = (currentIndex + 1) % totalImages;
+                    updateCarousel();
+                });
+                prevButton.addEventListener("click", () => {
+                    if (totalImages === 0) return;
+                    currentIndex = (currentIndex - 1 + totalImages) % totalImages;
+                    updateCarousel();
+                });
+
+                // 4. Contador de Tempo de Relacionamento
+                // ==================================================================
+                // !!! ATENÇÃO ISABELLY: MUDE ESTA DATA PARA A DE VOCÊS !!!
+                // Formato: Ano, Mês (0 = Jan, 1 = Fev, ..., 11 = Dez), Dia, Hora, Min, Seg
+                // Exemplo: 15 de Maio de 2023 às 14:30 seria: new Date(2023, 4, 15, 14, 30, 0);
+                const startDate = new Date(2025, 0, 23, 0, 0, 0); // !!! <--- EDITAR AQUI SUA DATA !!! (Exemplo: 7 de Abril de 2025, 00:00:00)
+                // ==================================================================
+
+                function updateCounter() {
+                    const now = new Date();
+                    const diff = now - startDate;
+
+                    if (!yearsEl || !monthsEl || !daysEl || !hoursEl || !minutesEl || !secondsEl) {
+                        console.error("Elementos do contador não encontrados.");
+                        clearInterval(counterInterval);
+                        return;
+                    }
+
+                    if (diff < 0) {
+                        // Data no futuro (Contagem Regressiva)
+                        if (futureDateWarning) futureDateWarning.style.display = "block";
+                        const timeLeft = startDate - now;
+                        const s = Math.floor((timeLeft / 1000) % 60);
+                        const m = Math.floor((timeLeft / 1000 / 60) % 60);
+                        const h = Math.floor((timeLeft / (1000 * 60 * 60)) % 24);
+                        const d = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                        // Simplificado para contagem regressiva: mostra apenas dias, horas, minutos, segundos
+                        yearsEl.innerText = "0";
+                        monthsEl.innerText = "0";
+                        daysEl.innerText = String(d).padStart(2, "0");
+                        hoursEl.innerText = String(h).padStart(2, "0");
+                        minutesEl.innerText = String(m).padStart(2, "0");
+                        secondsEl.innerText = String(s).padStart(2, "0");
+                    } else {
+                        // Data no passado (Tempo Juntos)
+                        if (futureDateWarning) futureDateWarning.style.display = "none";
+                        let years = now.getFullYear() - startDate.getFullYear();
+                        let months = now.getMonth() - startDate.getMonth();
+                        let days = now.getDate() - startDate.getDate();
+                        let hours = now.getHours() - startDate.getHours();
+                        let minutes = now.getMinutes() - startDate.getMinutes();
+                        let seconds = now.getSeconds() - startDate.getSeconds();
+
+                        // Ajustes finos para datas e horas
+                        if (seconds < 0) {
+                            minutes--;
+                            seconds += 60;
+                        }
+                        if (minutes < 0) {
+                            hours--;
+                            minutes += 60;
+                        }
+                        if (hours < 0) {
+                            days--;
+                            hours += 24;
+                        }
+                        if (days < 0) {
+                            months--;
+                            // Dias no mês anterior à data 'now'
+                            const daysInLastMonth = new Date(now.getFullYear(), now.getMonth(), 0).getDate();
+                            days += daysInLastMonth;
+                        }
+                        if (months < 0) {
+                            years--;
+                            months += 12;
+                        }
+
+                        secondsEl.innerText = String(seconds).padStart(2, "0");
+                        minutesEl.innerText = String(minutes).padStart(2, "0");
+                        hoursEl.innerText = String(hours).padStart(2, "0");
+                        daysEl.innerText = String(days).padStart(2, "0");
+                        monthsEl.innerText = String(months).padStart(2, "0");
+                        yearsEl.innerText = String(years).padStart(2, "0");
+                    }
+                }
+
+                function startRelationshipCounter() {
+                    if (!counterInterval) {
+                        if (isNaN(startDate.getTime())) {
+                            console.error("Data de início inválida! Verifique a variável 'startDate'.");
+                            if (futureDateWarning) {
+                                futureDateWarning.innerText = "Data Inválida!";
+                                futureDateWarning.style.display = "block";
+                            }
+                            [yearsEl, monthsEl, daysEl, hoursEl, minutesEl, secondsEl].forEach(el => {
+                                if (el) el.innerText = "--";
+                            });
+                            return;
+                        }
+                        // Atualiza a data mostrada estaticamente (caso a data JS seja diferente do exemplo)
+                        const startDateTextElement = document.querySelector(".counter-section .start-date");
+                        if (startDateTextElement) {
+                            const options = { year: "numeric", month: "long", day: "numeric" };
+                            // Ajusta para o fuso horário local ao formatar
+                            const formattedStartDate = startDate.toLocaleDateString("pt-BR", options);
+                            // Verifica se a data é futura antes de exibir "Desde"
+                            if (new Date() < startDate) {
+                                startDateTextElement.innerText = `Contagem regressiva para ${formattedStartDate}`;
+                            } else {
+                                startDateTextElement.innerText = `Desde ${formattedStartDate}`;
+                            }
+                        }
+
+                        updateCounter(); // Chama imediatamente
+                        counterInterval = setInterval(updateCounter, 1000);
+                    }
+                }
+
+                // Inicializa o carrossel (mesmo que vazio, para evitar erros)
+                updateCarousel();
+            });
+        </script>
+    </body>
+</html>
